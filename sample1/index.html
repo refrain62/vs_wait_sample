@@ -34,9 +34,9 @@
             addExecuteLog( strRamen + ': 作り始めます.' );
             
             // とりあえず非同期処理をそれぞれ実行
-            const processA = execAsyncProcess( strRamen + ' - 器を用意します', 1 );
-            const processB = execAsyncProcess( strRamen + ' - スープを作ります', 5 );
-            const processC = execAsyncProcess( strRamen + ' - 麺を茹でます', 8 );
+            const processA = execAsyncProcess( strRamen + ' - 器', 1 );
+            const processB = execAsyncProcess( strRamen + ' - スープ', 5 );
+            const processC = execAsyncProcess( strRamen + ' - 麺', 8 );
             
             // awaitするのはレスポンスの受取のみにする
             const a = await processA;
@@ -51,12 +51,12 @@
         // ------------------------------
         async function execAsyncProcess( argProcessName, argWaitTime )
         {
-            addExecuteLog( argProcessName + ': execAsyncProcess wait:' + argWaitTime + ' - start' );
+            addExecuteLog( argProcessName + 'の準備を【開始】します（予測時間:' + argWaitTime + '秒)' );
             
             // await句を使って、Promiseの非同期処理が完了するまで待機します。
             await sleepByPromise( argWaitTime );
             
-            addExecuteLog( argProcessName + ': execAsyncProcess wait:' + argWaitTime + ' - done' );
+            addExecuteLog( argProcessName + 'の準備が【完了】しました（経過時間:' + argWaitTime + '秒)' );
         }
         
         // ------------------------------
