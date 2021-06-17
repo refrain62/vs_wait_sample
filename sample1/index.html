@@ -1,0 +1,88 @@
+<html>
+<head>
+    <title>JavaScriptのwaitを使った実装サンプル１</title>
+</head>
+<body>
+    <button
+        onclick="clickExecute()"
+        >
+        非同期処理の同期処理実行（らーめん作ります）
+    </button>
+    
+    
+    <h2>実行結果</h2>
+    
+    <ul
+        id="ulExecuteLog"
+        >
+    </ul>
+    
+    
+    <!-- JavaScript処理 -->
+    <script>
+        
+        var ramenCnt = 1;
+        
+        // ------------------------------
+        // 非同期処理の同期処理実行ボタン押下時
+        // いっぱいクリックされても別働します
+        // ------------------------------
+        async function clickExecute()
+        {
+            let strRamen = 'ラーメン' + ramenCnt++;
+        
+            addExecuteLog( strRamen + ': 作り始めます.' );
+            
+            // とりあえず非同期処理をそれぞれ実行
+            const processA = execAsyncProcess( strRamen + ' - 器を用意します', 1 );
+            const processB = execAsyncProcess( strRamen + ' - スープを作ります', 5 );
+            const processC = execAsyncProcess( strRamen + ' - 麺を茹でます', 8 );
+            
+            // awaitするのはレスポンスの受取のみにする
+            const a = await processA;
+            const b = await processB;
+            const c = await processC;
+            
+            addExecuteLog( strRamen + ' - 作り終わりました.' );
+        }
+        
+        // ------------------------------
+        // 非同期の処理
+        // ------------------------------
+        async function execAsyncProcess( argProcessName, argWaitTime )
+        {
+            addExecuteLog( argProcessName + ': execAsyncProcess wait:' + argWaitTime + ' - start' );
+            
+            // await句を使って、Promiseの非同期処理が完了するまで待機します。
+            await sleepByPromise( argWaitTime );
+            
+            addExecuteLog( argProcessName + ': execAsyncProcess wait:' + argWaitTime + ' - done' );
+        }
+        
+        // ------------------------------
+        // Promiseを使うタイマー処理
+        // ------------------------------
+        function sleepByPromise( argSec )
+        {
+            return new Promise( resolve => setTimeout( resolve, argSec * 1000) );
+        }
+        
+        // ------------------------------
+        // 実行ログの出力
+        // ------------------------------
+        function addExecuteLog( argLog )
+        {
+            let newLi = document.createElement("li");
+            
+            // ログの内容を設定
+            newLi.innerHTML = argLog;
+            
+            // ログに追加
+            document.getElementById('ulExecuteLog').appendChild ( newLi );
+        }
+        
+    </script>
+
+</body>
+
+</html>
