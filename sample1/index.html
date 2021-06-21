@@ -41,8 +41,8 @@
             addExecuteLog( strRamen + ' - 作り始めます.' );
             
             // とりあえず非同期処理をそれぞれ実行
-            const processA = execAsyncProcess( strRamen + ' - 器', 1 );
-            const processB = execAsyncProcess( strRamen + ' - スープ', 5 );
+            const processA = execAsyncProcess( strRamen + ' - スープ', 5 );
+            const processB = execAsyncProcess( strRamen + ' - 器', 1 );
             const processC = execAsyncProcess( strRamen + ' - 麺', 8 );
             
             // awaitするのはレスポンスの受取のみにする
